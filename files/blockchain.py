@@ -34,8 +34,10 @@ class Block:
         chain_work += 2**256 // target
     Qui semplifichiamo:
         chain_work += difficulty   (monotonicamente crescente)
-    La regola di selezione e' comunque corretta:
-        "vince la catena con il chain_work massimo"
+    La regola di selezione rimane concettualmente equivalente:
+    "vince la catena con il chain_work massimo"
+    poiché tutte le catene accumulano lavoro secondo la stessa
+    metrica semplificata.
     """
     index:       int
     prev_hash:   str
@@ -204,10 +206,10 @@ class Blockchain:
 
     def _update_tip(self, new_block: Block) -> str:
         if new_block.chain_work < self.chain_work:
-            return "stale"        # ramo chiaramente perdente
+            return "stale"      
 
         if new_block.chain_work == self.chain_work:
-            return "connected"    # ramo concorrente → fork reale
+            return "connected"   
 
         # new_block.chain_work > self.chain_work → diventa il nuovo tip
         new_chain_hashes = []

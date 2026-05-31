@@ -4,10 +4,10 @@ node.py
 Modello di un nodo/miner della rete Bitcoin semplificata.
 
 Ogni nodo:
-  - mantiene una blockchain locale
-  - ha un hash power (potenza di mining relativa)
-  - riceve blocchi dagli altri nodi (con latenza simulata)
-  - mina nuovi blocchi con probabilità proporzionale al suo hash power
+  - riceve e valida blocchi propagati dalla rete
+  - mantiene una vista locale della blockchain
+  - espone il proprio hash power, utilizzato dal simulatore
+    per determinare la probabilità di mining
 """
 
 import random

@@ -2,7 +2,6 @@
 plots.py
 ========
 Funzioni di visualizzazione per i risultati della simulazione.
-Produce grafici in stile accademico (adatti per LaTeX/tesina).
 """
 
 import matplotlib
@@ -152,9 +151,6 @@ def plot_blockchain_dag(result: SimulationResult, ax: plt.Axes,
     """
     Visualizza la struttura ad albero della blockchain vista da un nodo.
     La catena attiva è mostrata in orizzontale; i rami stale in basso.
-
-    Questo tipo di grafico è tipico dei paper accademici su Bitcoin
-    (es. Eyal & Sirer 2014) per mostrare fork e stale blocks.
     """
     ax.set_title(f"Struttura blockchain — Nodo {node_id}", fontsize=11, pad=8)
     ax.axis("off")

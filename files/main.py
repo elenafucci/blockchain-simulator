@@ -5,7 +5,7 @@ Punto di ingresso del simulatore.
 Esegue i due scenari descritti nel Capitolo 4.3 della tesina:
 
   Scenario 1 — Fork competitivo
-    Due miner con pari hash power trovano quasi simultaneamente un blocco.
+    Quattro miner con pari hash power trovano quasi simultaneamente un blocco.
     Si osserva come la rete converge sulla catena con più chain_work.
 
   Scenario 2 — Attacco di riorganizzazione (51% attack simulation)
@@ -41,19 +41,21 @@ os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 def run_scenario_1() -> object:
     """
-    Scenario 1 — Fork competitivo tra due miner con pari potenza.
+    Scenario 1 — Fork competitivo tra quattro miner con pari potenza.
 
     Configurazione:
-      - 4 nodi, tutti con hash power = 1.0 (equipotenti)
-      - Latenza alta (500 ms) per aumentare la probabilità di fork
-      - Difficulty = 3 (bassa, per velocizzare la simulazione)
-      - Durata: 3600 secondi simulati (60 "block times" da 60s)
+        - 4 nodi equipotenti con hash power normalizzato hi = 0.25;
+        - latenza media di propagazione pari a 800 ms;
+        - difficulty fissata a 3 zeri esadecimali;
+        - block time atteso di 20 secondi simulati;
+        - durata complessiva della simulazione di 3600 secondi, 
+            corrispondente a circa 180 block time teorici attesi.
 
     Cosa osservare:
-      - I nodi divergono temporaneamente in altezza
-      - La regola del chain_work massimo li riporta in consenso
-      - I blocchi stale aumentano ad ogni fork
-    """
+        - Divergenze temporanee tra i tip dei nodi dovute alle fork.
+        - Riconvergenza spontanea tramite la most-work chain rule.
+        - Accumulo di blocchi stale nei rami esclusi dalla catena finale.
+            """
     print("\n" + "="*60)
     print("SCENARIO 1: Fork competitivo")
     print("="*60)
@@ -141,20 +143,23 @@ def run_scenario_1() -> object:
 def run_scenario_2() -> object:
     """
     Scenario 2 — Attacco del 51% con catena segreta.
-
     Configurazione:
         - 3 nodi onesti con hash power totale = 3.0
         - 1 nodo malevolo con hash power = 4.0 (57%)
         - Il nodo malevolo mina in segreto fino a t=1200s
-        - A t=1200s rivela la catena segreta
-        - I nodi onesti eseguono una reorg profonda
+        - A t=1200s rivela la catena privata
+        - I nodi onesti adottano la catena con chain work maggiore
 
     Cosa osservare:
-      - La catena onesta cresce normalmente fino a t=400s
-      - A t=400s tutti i nodi onesti fanno reorg sulla catena malevola
-      - Il chain_work della catena malevola supera quello onesto
-      - Questo è esattamente l'attacco descritto da Nakamoto nel §11
+        - La catena onesta cresce normalmente fino alla rivelazione
+        - A t=1200s la catena privata viene pubblicata
+        - I nodi onesti possono eseguire una riorganizzazione profonda
+            se la catena privata accumula più chain work
+        - Il chain work della catena malevola supera quello della catena onesta
+        - Il comportamento osservato riproduce qualitativamente l'attacco del 51%
+            descritto da Satoshi Nakamoto nella Sezione 11 del white paper Bitcoin
     """
+
     print("\n" + "="*60)
     print("SCENARIO 2: Attacco del 51% (catena segreta)")
     print("="*60)

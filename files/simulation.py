@@ -10,10 +10,12 @@ In ogni tick:
   3. I blocchi il cui arrivo è scaduto vengono consegnati e processati
 
 Architettura:
-  - Il miner NON aggiunge il blocco alla propria catena in mine_block.
-    Lo invia a se stesso come tutti gli altri, con latenza zero.
-    Questo centralizza tutta la logica in un unico posto (add_block)
-    e rende il modello più fedele a Bitcoin Core.
+  - Un blocco appena minato non viene inserito direttamente nella
+    blockchain locale del miner.
+  - Il blocco viene invece propagato tramite la stessa logica usata
+    per tutti gli altri nodi (con latenza nulla verso il mittente).
+  - In questo modo tutta la logica di validazione e aggiornamento
+    della catena è centralizzata in add_block().
 """
 
 import random
@@ -109,7 +111,8 @@ class Simulator:
     def _step(self, dt: float, result: SimulationResult):
         """
         Un passo temporale:
-         1. Ogni nodo cerca di minare (processo di Poisson)
+        1. Ogni nodo tenta di minare con probabilità derivata dal modello
+            di Poisson del mining Bitcoin
          2. I blocchi trovati entrano nella coda di rete
          3. La rete consegna i blocchi con ritardo
         """

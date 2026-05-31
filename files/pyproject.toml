@@ -1,0 +1,12 @@
+[project]
+name = "simulatore-blockchain"
+version = "0.1.0"
+description = "Simulatore blockchain/Bitcoin per tesina"
+requires-python = ">=3.10"
+dependencies = [
+  "matplotlib",
+  "numpy",
+]
+
+[tool.uv]
+# Keep uv behavior explicit for this small project.

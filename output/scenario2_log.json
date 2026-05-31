@@ -1,0 +1,87 @@
+{
+  "config": {
+    "num_nodes": 3,
+    "hash_powers": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "malicious_hash_power": 4.0,
+    "malicious_reveal_at": 1200.0,
+    "latency_ms": 2000,
+    "difficulty": 3,
+    "block_time": 10,
+    "duration": 2000,
+    "random_seed": 43
+  },
+  "metrics": {
+    "total_blocks": 213,
+    "fork_events": 18,
+    "reorg_events": 10,
+    "attack_reorgs": 3,
+    "total_stale": 149,
+    "wall_time_sec": 0.7234423160552979
+  },
+  "reorg_events": [
+    {
+      "time": 653.0,
+      "node": 0,
+      "detail": "reorg:0001dade->00003aa8:depth=1",
+      "depth": 1
+    },
+    {
+      "time": 923.5,
+      "node": 2,
+      "detail": "reorg:000a50d6->000a67eb:depth=1",
+      "depth": 1
+    },
+    {
+      "time": 1200.0,
+      "node": 0,
+      "detail": "reorg:0006c4eb->00079bf3:depth=42:ATTACK",
+      "depth": 42
+    },
+    {
+      "time": 1200.0,
+      "node": 1,
+      "detail": "reorg:0006c4eb->00079bf3:depth=42:ATTACK",
+      "depth": 42
+    },
+    {
+      "time": 1200.0,
+      "node": 2,
+      "detail": "reorg:0006c4eb->0000ea2f:depth=43:ATTACK",
+      "depth": 43
+    },
+    {
+      "time": 1385.0,
+      "node": 1,
+      "detail": "reorg:000d3fdd->000184b7:depth=1",
+      "depth": 1
+    },
+    {
+      "time": 1454.0,
+      "node": 1,
+      "detail": "reorg:000d3fdd->0004df05:depth=2",
+      "depth": 2
+    },
+    {
+      "time": 1454.5,
+      "node": 0,
+      "detail": "reorg:000d3fdd->0004df05:depth=2",
+      "depth": 2
+    },
+    {
+      "time": 1911.5,
+      "node": 2,
+      "detail": "reorg:0003d5db->000efa6c:depth=2",
+      "depth": 2
+    },
+    {
+      "time": 1912.0,
+      "node": 1,
+      "detail": "reorg:0003d5db->000efa6c:depth=2",
+      "depth": 2
+    }
+  ]
+}
